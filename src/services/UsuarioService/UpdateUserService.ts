@@ -27,6 +27,8 @@ export class UpdateUserService {
 
         await userRepository.save(user);
         
+        user.password_hash = undefined;
+        
         return user;
     }
 }

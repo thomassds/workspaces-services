@@ -5,11 +5,12 @@ export class GetOneUserService {
     async execute(id: string) {
         const userRepository = getCustomRepository(UserRepostitory);
 
-        const user = await userRepository.find({
+        const user = await userRepository.findOne({
             where: { 
                 id 
             },
-            relations: ["status"]
+            relations: ["status"],
+            select: ["id", "name", "email", "status"]
         });
 
         if(!user) {
