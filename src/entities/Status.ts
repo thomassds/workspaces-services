@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { v4 as uuid } from "uuid";
 
 @Entity("status")
@@ -10,8 +10,11 @@ export class Status {
     @Column()
     description: string;
 
-    @Column()
-    created_at: Date;
+    @CreateDateColumn({ name: "created_At" })
+    created_At: Date;
+
+    @UpdateDateColumn({ name: "updated_At" })
+    updated_At: Date;
 
     constructor() {
         if(!this.id) {

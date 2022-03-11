@@ -12,10 +12,14 @@ export class createUsers1646953381036 implements MigrationInterface {
                         type: "uuid",
                         isPrimary: true,
                     },
-                    { 
+                    {
                         name: "name",
                         type: "varchar",
-                        isUnique: false
+                    },
+                    { 
+                        name: "email",
+                        type: "varchar",
+                        isUnique: true
                     },
                     {
                         name: "password_hash",
@@ -26,7 +30,12 @@ export class createUsers1646953381036 implements MigrationInterface {
                         type: "uuid"
                     },
                     { 
-                        name: "created_at",
+                        name: "created_At",
+                        type: "timestamp",
+                        default: "now()"
+                    },
+                    { 
+                        name: "updated_At",
                         type: "timestamp",
                         default: "now()"
                     },

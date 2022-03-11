@@ -1,16 +1,36 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
 import { v4 as uuid } from "uuid";
 
-@Entity("status")
-export class Status {
+import { EncryptionTransformer } from "typeorm-encrypted";
+
+import { Status } from "./Status";
+import { Crypto } from "../configs/crypto";
+
+@Entity("users")
+export class User {
 
     @PrimaryColumn()
     id: string;
 
-    @Column()
+    @Column({
+        type: "varchar",
+        nullable: false,
+        transformer: Crypto
+      })
     name: string;
 
-    @Column()
+    @Column({
+        type: "varchar",
+        nullable: false,
+        transformer: Crypto
+      })
+    email: string
+
+    @Column({
+        type: "varchar",
+        nullable: false,
+        transformer: Crypto
+      })
     password_hash: string;
 
     @Column()
@@ -20,8 +40,11 @@ export class Status {
     @JoinColumn({name: "id_status"})
     status: Status;
 
-    @Column()
-    created_ad: Date;
+    @CreateDateColumn()
+    created_At: Date;
+
+    @CreateDateColumn()
+    updated_At: Date;
 
     constructor() {
         if(!this.id) {

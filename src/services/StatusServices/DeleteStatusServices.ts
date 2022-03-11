@@ -1,14 +1,18 @@
-import { getRepository } from "typeorm";
+import { getCustomRepository, getRepository } from "typeorm";
+
 import { Status } from "../../entities/Status";
+
+import StatusRepostitory from "../../repositories/StatusRepository";
 
 export class DeleteStatusService {
     async execute(id: string) {
-        const repo = getRepository(Status);
+        const statusRepository = getCustomRepository(StatusRepostitory);
 
-        if(!(await repo.findOne(id))) {
+        const status = await statusRepository.findOne(id)
+        if(!status) {
             return new Error("Status does not exists!");
         }
 
-        await repo.delete(id);
+        await statusRepository.delete(id);
     }
 }

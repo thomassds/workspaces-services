@@ -12,16 +12,20 @@ export class createStatus1646953374338 implements MigrationInterface {
                         type: 'uuid',
                         isPrimary: true,
                     },
-                    { 
-                        name: "description",
-                        type: "varchar",
-                        isUnique: false
+                    {
+                        name: 'description',
+                        type: 'varchar',
                     },
                     { 
-                        name: "created_at",
+                        name: "created_At",
                         type: "timestamp",
                         default: "now()"
-                    }
+                    },
+                    { 
+                        name: "updated_At",
+                        type: "timestamp",
+                        default: "now()"
+                    },
                 ]
             })
         );

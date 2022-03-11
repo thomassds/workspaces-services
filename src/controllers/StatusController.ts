@@ -10,6 +10,10 @@ export class StatusController {
     async store(req: Request, res: Response) {
         const { description } = req.body
 
+        if(!description || description == null) {
+            return res.status(400).json("Description is undefined");
+        }
+
         const service = new CreateStatusService();
 
         const status = await service.execute({ description });

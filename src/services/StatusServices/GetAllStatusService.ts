@@ -1,11 +1,11 @@
-import { getRepository } from "typeorm";
-import { Status } from "../../entities/Status";
+import { getCustomRepository, getRepository } from "typeorm";
+import StatusRepostitory from "../../repositories/StatusRepository";
 
 export class GetAllStatusService {
     async execute() {
-        const repo = getRepository(Status);
+        const statusRepository = getCustomRepository(StatusRepostitory);
 
-        const status = await repo.find();
+        const status = await statusRepository.find();
 
         return status;
     }

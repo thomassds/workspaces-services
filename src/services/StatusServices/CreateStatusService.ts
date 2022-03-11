@@ -1,5 +1,6 @@
-import { getRepository } from "typeorm";
+import { getRepository, getCustomRepository } from "typeorm";
 import { Status } from "../../entities/Status";
+import StatusRepostitory from "../../repositories/StatusRepository";
 
 type StatusRequest = {
     description: string
@@ -7,17 +8,17 @@ type StatusRequest = {
 
 export class CreateStatusService {
     async execute({ description }:StatusRequest): Promise<Status | Error> {
-        const repo = getRepository(Status);
+        const statusRepository = getCustomRepository(StatusRepostitory);
 
-        if(await repo.findOne({description})) {
+        if(await statusRepository.findOne({description})) {
             return new Error("Status already exists");
         }
 
-        const status = repo.create({
+        const status = statusRepository.create({
             description
         });
     
-        await repo.save(status);
+        await statusRepository.save(status);
 
         return status;
     }

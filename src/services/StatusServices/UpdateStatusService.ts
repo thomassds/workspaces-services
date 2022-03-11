@@ -1,5 +1,5 @@
-import { getRepository } from "typeorm";
-import { Status } from "../../entities/Status";
+import { getCustomRepository, getRepository } from "typeorm";
+import StatusRepostitory from "../../repositories/StatusRepository";
 
 type StatusUpdateRequest = {
     id: string,
@@ -8,17 +8,18 @@ type StatusUpdateRequest = {
 
 export class UpdateStatusService {
     async execute({ id, description }: StatusUpdateRequest) {
-        const repo = getRepository(Status);
+        const statusRepository = getCustomRepository(StatusRepostitory);
 
-        const status = await repo.findOne(id);
+        const status = await statusRepository.findOne(id);
 
         if(!status) {
             return new Error("Status does not exists!");
         }
 
         status.description = description ? description : status.description;
+        status.updated_At = new Date();
 
-        await repo.save(status);
+        await statusRepository.save(status);
 
         return status;
     }
