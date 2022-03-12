@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { RealStateController } from "./controllers/RealStateController";
 import { StatusController } from "./controllers/StatusController";
 import { UserController } from "./controllers/UserController";
 
@@ -15,5 +16,11 @@ routes.get("/users", new UserController().index);
 routes.get("/:id/user", new UserController().indexId);
 routes.delete("/:id/user", new UserController().delete);
 routes.put("/:id/user", new UserController().update);
+
+routes.post("/real_state", new RealStateController().store);
+routes.get("/real_states", new RealStateController().index);
+routes.get("/:id/real_state", new RealStateController().indexId);
+routes.delete("/:id/real_state", new RealStateController().delete);
+routes.put("/:id/real_state", new RealStateController().update);
 
 export { routes };
