@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 
-import { CreateUserService } from "../services/UsuarioService/CreateUserService";
-import { DeleteUserService } from "../services/UsuarioService/DeleteUserService";
-import { GetAllUserService } from "../services/UsuarioService/GetAllUserService";
-import { GetOneUserService } from "../services/UsuarioService/GetOneUserService";
-import { UpdateUserService } from "../services/UsuarioService/UpdateUserService";
+import { CreateUserService } from "../services/UserServices/CreateUserService";
+import { DeleteUserService } from "../services/UserServices/DeleteUserService";
+import { GetAllUserService } from "../services/UserServices/GetAllUserService";
+import { GetOneUserService } from "../services/UserServices/GetOneUserService";
+import { UpdateUserService } from "../services/UserServices/UpdateUserService";
 
 type UserRequest = {
     id?: string,
