@@ -22,7 +22,7 @@ export class RealStateController {
         const real_state = await service.execute({ name, id_gr, id_status });
 
         if(real_state instanceof Error) {
-            return res.send(400).json(real_state.message);
+            return res.status(400).json(real_state.message);
         }
 
         return res.json(real_state);
@@ -44,7 +44,7 @@ export class RealStateController {
         const real_state = await service.execute(id);
 
         if(real_state instanceof Error) {
-            return res.status(400).send(real_state.message);
+            return res.status(400).json(real_state.message);
         }
 
         return res.json(real_state);
@@ -72,7 +72,7 @@ export class RealStateController {
         const real_state = await service.execute({ id, name, id_gr, id_status });
 
         if(real_state instanceof Error) {
-            return res.status(400).send(real_state.message);
+            return res.status(400).json(real_state.message);
         }
 
         return res.json(real_state);

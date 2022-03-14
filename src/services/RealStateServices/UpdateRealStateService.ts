@@ -11,7 +11,7 @@ type RealStateRequest = {
 
 export class UpdateRealStateService {
     async execute({ id, name, id_gr, id_status }: RealStateRequest) {
-        const real_stateRepository = getCustomRepository(RealStateRepository);
+        const real_state_repository = getCustomRepository(RealStateRepository);
         const statusRepository = getCustomRepository(StatusRepostitory);
 
         if(id_status) {
@@ -22,7 +22,7 @@ export class UpdateRealStateService {
             }
         }
         
-        const real_state = await real_stateRepository.findOne(id);
+        const real_state = await real_state_repository.findOne(id);
 
         if(!real_state) {
             return new Error("Real State does not exists!");
@@ -33,7 +33,7 @@ export class UpdateRealStateService {
         real_state.id_status = id_status ? id_status : real_state.id_status;
         real_state.updated_At = new Date();
         
-        await real_stateRepository.save(real_state);
+        await real_state_repository.save(real_state);
         
         return real_state;
     }

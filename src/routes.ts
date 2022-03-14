@@ -3,6 +3,7 @@ import { Router } from "express";
 import { RealStateController } from "./controllers/RealStateController";
 import { ServiceController } from "./controllers/ServiceController";
 import { StatusController } from "./controllers/StatusController";
+import { SubServiceController } from "./controllers/SubServiceController";
 import { TypeController } from "./controllers/TypeController";
 import { UserController } from "./controllers/UserController";
 
@@ -38,5 +39,10 @@ routes.get("/:id/service", new ServiceController().indexId);
 routes.delete("/:id/service", new ServiceController().delete);
 routes.put("/:id/service", new ServiceController().update);
 
+routes.post("/sub_service", new SubServiceController().store);
+routes.get("/sub_services", new SubServiceController().index);
+routes.get("/:id/sub_service", new SubServiceController().indexId);
+routes.delete("/:id/sub_service", new SubServiceController().delete);
+routes.put("/:id/sub_service", new SubServiceController().update);
 
 export { routes };

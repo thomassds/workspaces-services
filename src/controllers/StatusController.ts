@@ -66,7 +66,7 @@ export class StatusController {
         const status = await service.execute({ id, description });
 
         if(status instanceof Error) {
-            return res.status(400).send(status.message);
+            return res.status(400).json(status.message);
         }
 
         return res.json(status);
