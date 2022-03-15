@@ -6,12 +6,6 @@ import { GetAllRealStateService } from "../services/RealStateServices/GetAllReal
 import { GetOneRealStateService } from "../services/RealStateServices/GetOneRealStateService";
 import { UpdateRealStateService } from "../services/RealStateServices/UpdateRealStateService";
 
-type RealStateRequest = {
-    id?: string,
-    name: string,
-    id_gr: string,
-    id_status: string
-}
 
 export class RealStateController {
     async store(req: Request, res: Response) {
