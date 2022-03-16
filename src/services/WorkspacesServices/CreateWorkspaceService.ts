@@ -18,23 +18,23 @@ type WorkspaceRequest = {
 }
 
 export class CreateWorkspaceService {
-    async execute({ description, id_user, id_real_state, id_type, id_status, id_service }) {
-        const workspace_repository = new WorkspaceRepository();
-        const user_repository = new UserRepostitory();
-        const real_state_repository = new RealStateRepository();
-        const type_repository = new TypeRepository();
-        const status_repository = new StatusRepostitory();
-        const service_repository = new ServiceRepository(); 
+    async execute({ description, id_user, id_real_state, id_type, id_status, id_service}:WorkspaceRequest) {
+        const workspace_repository = getCustomRepository(WorkspaceRepository);
+        const user_repository = getCustomRepository(UserRepostitory);
+        const real_state_repository = getCustomRepository(RealStateRepository);
+        const type_repository = getCustomRepository(TypeRepository);
+        const status_repository = getCustomRepository(StatusRepostitory);
+        const service_repository = getCustomRepository(ServiceRepository); 
 
         const user = await user_repository.findOne({id: id_user});
         if(!user) {
             return new Error("User does not exists");
         }
-
+        
         const real_state = await real_state_repository.findOne({id: id_real_state});
         if(!real_state) {
             return new Error("Real State does not exists");
-        } 
+        }
 
         const type = await type_repository.findOne({id: id_type });
         if(!type) {
@@ -54,6 +54,8 @@ export class CreateWorkspaceService {
         const workspace = workspace_repository.create({
             description, id_user, id_real_state, id_type, id_status, id_service, start_time: new Date() 
         })
+        
+        await workspace_repository.save(workspace);
         
         return workspace;
     }   

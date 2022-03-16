@@ -1,10 +1,10 @@
 import {MigrationInterface, QueryRunner, Table} from "typeorm";
 
-export class createWorkspaces1647302315426 implements MigrationInterface {
+export class createTasks1647382726893 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: "workspaces",
+                name: "tasks",
                 columns: [
                     {
                         name: "id",
@@ -20,10 +20,6 @@ export class createWorkspaces1647302315426 implements MigrationInterface {
                         type: "uuid",
                     },
                     {
-                        name: "id_real_state",
-                        type: "uuid"
-                    },
-                    {
                         name: "id_type",
                         type: "uuid"
                     },
@@ -32,17 +28,28 @@ export class createWorkspaces1647302315426 implements MigrationInterface {
                         type: "uuid"
                     },
                     {
-                        name: "id_service",
+                        name: "id_sub_service",
                         type: "uuid"
                     },
                     { 
                         name: "start_time",
                         type: "timestamp",
+                        default: "now()"
                     },
                     { 
                         name: "finish_time",
                         type: "timestamp",
                         isNullable: true
+                    },
+                    {
+                        name: "progress",
+                        type: "float",
+                        default: 0
+                    },
+                    {
+                        name: "depends_on",
+                        type: "uuid",
+                        isNullable: true,
                     },
                     { 
                         name: "created_At",
@@ -57,33 +64,27 @@ export class createWorkspaces1647302315426 implements MigrationInterface {
                 ],
                 foreignKeys: [
                     {
-                        name: "fk_workspace_user",
+                        name: "fk_task_user",
                         columnNames: ["id_user"],
                         referencedTableName: "users",
                         referencedColumnNames: ["id"]
                     },
                     {
-                        name: "fk_workspace_real_state",
-                        columnNames: ["id_real_state"],
-                        referencedTableName: "real_states",
-                        referencedColumnNames: ["id"]
-                    },
-                    {
-                        name: "fk_workspace_type",
+                        name: "fk_task_type",
                         columnNames: ["id_type"],
                         referencedTableName: "types",
                         referencedColumnNames: ["id"]
                     },
                     {
-                        name: "fk_workspace_status",
+                        name: "fk_task_status",
                         columnNames: ["id_status"],
                         referencedTableName: "status",
                         referencedColumnNames: ["id"]
                     },
                     {
-                        name: "fk_workspace_services",
-                        columnNames: ["id_service"],
-                        referencedTableName: "services",
+                        name: "fk_task_sub_services",
+                        columnNames: ["id_sub_service"],
+                        referencedTableName: "sub_services",
                         referencedColumnNames: ["id"]
                     }
                 ]
@@ -92,7 +93,6 @@ export class createWorkspaces1647302315426 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('workspaces');
+        await queryRunner.dropTable('tasks');
     }
-
 }

@@ -11,6 +11,10 @@ type UserRequest = {
 
 @EntityRepository(User)
 export default class UserRepostitory extends Repository<User> {
+    async findByIdUser(id: string) : Promise<User>{
+        return this.findOne(id);
+    }
+
     async createUser({ name, email, password_hash, id_status }: UserRequest) : Promise<User>{
         return this.create({
             name, email, password_hash, id_status

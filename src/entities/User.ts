@@ -29,7 +29,8 @@ export class User {
     @Column({
         type: "varchar",
         nullable: false,
-        transformer: Crypto
+        transformer: Crypto,
+        select: false
       })
     password_hash: string;
 

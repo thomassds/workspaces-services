@@ -4,8 +4,10 @@ import { RealStateController } from "./controllers/RealStateController";
 import { ServiceController } from "./controllers/ServiceController";
 import { StatusController } from "./controllers/StatusController";
 import { SubServiceController } from "./controllers/SubServiceController";
+import { TaskController } from "./controllers/TaskController";
 import { TypeController } from "./controllers/TypeController";
 import { UserController } from "./controllers/UserController";
+import { WorkspaceController } from "./controllers/WorkspaceController";
 
 const routes = Router();
 
@@ -44,5 +46,18 @@ routes.get("/sub_services", new SubServiceController().index);
 routes.get("/:id/sub_service", new SubServiceController().indexId);
 routes.delete("/:id/sub_service", new SubServiceController().delete);
 routes.put("/:id/sub_service", new SubServiceController().update);
+
+routes.post("/workspace", new WorkspaceController().store);
+routes.get("/:id/workspace", new WorkspaceController().indexId);
+routes.get("/workspaces/pendings", new WorkspaceController().indexPending);
+routes.delete("/:id/workspace", new WorkspaceController().delete);
+routes.put("/:id/workspace", new WorkspaceController().update);
+
+routes.post("/task", new TaskController().store);
+routes.get("/tasks", new TaskController().index);
+routes.get("/:id/task", new TaskController().indexId);
+routes.delete("/:id/task", new TaskController().delete);
+routes.put("/:id/task", new TaskController().update);
+
 
 export { routes };

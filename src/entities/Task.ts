@@ -1,13 +1,12 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryColumn } from "typeorm";
 import { v4 as uuid } from "uuid";
-import { RealState } from "./RealState";
-import { Service } from "./Service";
 import { Status } from "./Status";
+import { SubService } from "./SubService";
 import { Type } from "./Type";
 import { User } from "./User";
 
-@Entity("workspaces")
-export class Workspace {
+@Entity("tasks")
+export class Task {
 
     @PrimaryColumn()
     id: string;
@@ -21,13 +20,6 @@ export class Workspace {
     @ManyToOne(() => User)
     @JoinColumn({name: "id_user"})
     user: User;
-
-    @Column()
-    id_real_state: string;
-
-    @ManyToOne(() => RealState)
-    @JoinColumn({name: "id_real_state"})
-    real_state: RealState;
 
 
     @Column()
@@ -47,11 +39,12 @@ export class Workspace {
 
 
     @Column()
-    id_service: string;
+    id_sub_service: string;
 
-    @ManyToOne(() => Service)
-    @JoinColumn({name: "id_service"})
-    service: Service;
+    @ManyToOne(() => SubService)
+    @JoinColumn({name: "id_sub_service"})
+    sub_service: SubService;
+
 
     @CreateDateColumn()
     start_time: Date;
@@ -59,6 +52,16 @@ export class Workspace {
     @CreateDateColumn()
     finish_time: Date;
 
+    @Column()
+    progress: number;
+
+    @Column()
+    depends_on: string;
+
+    @OneToOne(() => Task)
+    dependence: Task
+
+    
     @CreateDateColumn()
     created_At: Date;
 
