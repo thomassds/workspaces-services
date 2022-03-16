@@ -1,4 +1,7 @@
 import { Request, Response } from "express";
+
+import Queue from '../lib/Queue';
+
 import { CreateTaskService } from "../services/TaskServices/CreateTaskService";
 import { DeleteTaskService } from "../services/TaskServices/DeleteTaskService";
 import { GetAllTaskService } from "../services/TaskServices/GetAllTaskService";
@@ -16,6 +19,7 @@ export class TaskController {
         if(task instanceof Error) {
             return res.status(400).json(task.message);
         }
+
         return res.json(task);
     }
 
@@ -53,12 +57,21 @@ export class TaskController {
     }
 
     async delete(req: Request, res: Response) {
-        const { id }= req.params;
+        const { id } = req.params;
         
         const service = new DeleteTaskService();
 
         const task = await service.execute(id);
 
         return res.status(204).end();
+    }
+
+    async start(req: Request, res: Response) {
+        const { id } = req.params;
+
+        // Adicionar execução de job
+        await Queue.add("TaskBackup", { id });
+
+        return res.json("Task started");
     }
 }

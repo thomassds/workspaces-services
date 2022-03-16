@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev --transpile-only src/server.ts",
+    "dev:queue": "ts-node-dev --transpile-only src/queue.ts",
     "typeorm": "ts-node-dev node_modules/.bin/typeorm",
     "typeorm:cli": "ts-node ./node_modules/typeorm/cli -f"
   },
@@ -15,6 +16,7 @@
   },
   "dependencies": {
     "@types/uuid": "^8.3.4",
+    "bull": "^4.7.0",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "pg": "^8.7.3",

@@ -58,6 +58,7 @@ routes.get("/tasks", new TaskController().index);
 routes.get("/:id/task", new TaskController().indexId);
 routes.delete("/:id/task", new TaskController().delete);
 routes.put("/:id/task", new TaskController().update);
+routes.post("/:id/task/start", new TaskController().start);
 
 
 export { routes };
